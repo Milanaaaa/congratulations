@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<h1>{{ name }}</h1>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    Сортировка
+  </button>
+  <ul class="dropdown-menu">
+    {% for hd in list_holidays %}
+      <li><a class="dropdown-item" href="/filter/{{ user_id }}/{{ hd['id'] }}">{{ hd["title"] }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+<a class="btn btn-info" href="/writecong" role="button">Написать поздравление</a>
+{% if role_id == 1 %}
+  <a class="btn btn-warning" href="/holidays" role="button">Создать праздник</a>
+{% endif %}
+<ol>
+    {% for cong in list_congrats %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ cong.title }}</h5>
+            <p class="card-text">{{ cong.text }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <a class="list-group-item" href="/holyday_page/{{ cong['holiday']['id'] }}">Праздник: {{ cong['holiday']['title'] }}</a>
+            <li class="list-group-item">Отправитель: {{ cong['sender']['name'] }}</li>
+            <li class="list-group-item">Дата: {{ cong['send_date'] }}</li>
+          </ul>
+          <div class="card-body">
+            <a href="/writecong/{{ cong['id'] }}" class="card-link">Редактировать</a>
+            <a href="/cong_delete/{{ cong['id'] }}" class="card-link">Удалить</a>
+          </div>
+        </div>
+    {% endfor %}
+</ol>
+</div>
+{% endblock %}

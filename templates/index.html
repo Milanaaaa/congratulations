@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<h1>Поздравления</h1>
+{% for item in congratulations%}
+<div class="col-md6 border rounded">
+    <h2>{{item.title}}</h2>
+    <div>
+        {{item.text}}
+    </div>
+    <div>
+        Автор - {{item.sender.name}}, Дата праздника - {{item.send_date}}
+    </div>
+</div>
+{% endfor %}
+</div>
+{% endblock %}

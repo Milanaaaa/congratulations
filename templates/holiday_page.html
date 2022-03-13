@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+<h1>{{ name }}</h1>
+<a class="btn btn-info" href="/writecong" role="button">Написать поздравление</a>
+{% if user_role_id == 1 %}
+  <a class="btn btn-warning" href="/holidays/{{ hd_id }}" role="button">Редактировать праздник</a>
+  <a class="btn btn-warning" href="/holidays_delete/{{ hd_id }}" role="button">Удалить праздник</a>
+{% endif %}
+<ol>
+    {% for cong in list_congrats %}
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ cong.title }}</h5>
+            <p class="card-text">{{ cong.text }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Праздник: {{ cong['holiday']['title'] }}</li>
+            <li class="list-group-item">Отправитель: {{ cong['sender']['name'] }}</li>
+            <li class="list-group-item">Дата: {{ cong['send_date'] }}</li>
+          </ul>
+          <div class="card-body">
+            <a href="/writecong/{{ cong['id'] }}" class="card-link">Редактировать</a>
+            <a href="/cong_delete/{{ cong['id'] }}" class="card-link">Удалить</a>
+          </div>
+        </div>
+    {% endfor %}
+</ol>
+</div>
+{% endblock %}
